@@ -9,7 +9,7 @@ import play.db.jpa.JPA;
 /**
  * Camada genérica para acesso ao Banco de Dados
  */
-public class GenericDAOImpl implements GenericDAO {
+public class GenericDAOImpl implements GenericDAO{
 
 	@Override
 	public boolean persist(Object e) {
