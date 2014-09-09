@@ -5,6 +5,7 @@ package models;
 
 import java.sql.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -15,11 +16,12 @@ import play.data.validation.Constraints.Required;
  * @author Wesley
  *
  */
+@Entity
 public abstract class Viagem {
 	
 	@Id
 	@GeneratedValue
-	private int id;
+	private long id;
 	
 	@Required
 	@ManyToOne
@@ -30,6 +32,15 @@ public abstract class Viagem {
 	
 	@Required
 	private String descricao;
+	
+	public Viagem() {
+	}
+	
+	public Viagem(Local local, Date data, String descricao){
+		this.local = local;
+		this.data = data;
+		this.descricao = descricao;		
+	}
 	
 	/**
 	 * @return the local
@@ -76,7 +87,7 @@ public abstract class Viagem {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 

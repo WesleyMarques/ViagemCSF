@@ -18,7 +18,7 @@ public class Local {
 	
 	@Id
 	@GeneratedValue
-	private Long id;
+	private long id;
 	
 	@Required
 	private String nome;
