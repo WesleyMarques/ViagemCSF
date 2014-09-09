@@ -5,7 +5,6 @@ import java.util.List;
 import models.Usuario;
 import models.dao.GenericDAO;
 import models.dao.GenericDAOImpl;
-import play.*;
 import play.data.Form;
 import play.db.jpa.Transactional;
 import play.mvc.*;
