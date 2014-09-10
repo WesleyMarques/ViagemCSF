@@ -31,7 +31,7 @@ public class Viagem extends Controller{
 			Application.getDao().persist(novaTrip);
 			Application.getDao().merge(novaTrip);
 			Application.getDao().flush();
-			return Redirect(routes.Application.index());
+			return redirect(routes.Application.index());
 		}
 	}
 
