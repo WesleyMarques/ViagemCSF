@@ -11,5 +11,11 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 #login e logout
 GET			/login						controllers.Application.showLogin()
 POST		/login						controllers.Application.authenticate()
-GET     	/logout                      controllers.Application.logout()
+GET     	/logout                     controllers.Application.logout()
+GET			/registrar					controllers.Application.showRegistry()
+POST		/registrar					controllers.Application.registrar()
 
+
+#Viagem
+POST		/newTrip					controllers.Viagem.newTrip()
+POST		/loginClosedTrip/:idViagem	controllers.Viagem.loginClosedTrip(idViagem: Long)

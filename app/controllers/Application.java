@@ -38,21 +38,20 @@ public class Application extends Controller {
 	
 	@Transactional
 	public static Result authenticate() {
-
-		Form<Usuario> userForm = userForm.bindFromRequest();
+		Form<Usuario> newUserForm = userForm.bindFromRequest();
 		Usuario userA;
 
-		if (userForm.hasErrors()) {
+		if (newUserForm.hasErrors()) {
 			flash("fail", "Erro na captura dos dados");
-        	return badRequest(login.render(userForm));						
+        	return badRequest(login.render(newUserForm));						
 		}else{
-			userA = userForm.get();
+			userA = newUserForm.get();
 			String email = userA.getEmail();
 			String senha = userA.getSenha();
 
 	        if (!validate(email, senha)) {
 	        	flash("fail", "Email ou Senha Inválidos");
-	        	return badRequest(login.render(userForm));
+	        	return badRequest(login.render(newUserForm));
 	        } else {
 	        	Usuario user = (Usuario) dao.findByAttributeName(
 	        			"Usuario", "email", userA.getEmail()).get(0);
@@ -84,7 +83,7 @@ public class Application extends Controller {
 //Login end
 //Métodos para registro de novo usuário
 	@Transactional
-	public static Result show() {
+	public static Result showRegistry() {
 		return ok(registro.render(userForm));
 	}
 
