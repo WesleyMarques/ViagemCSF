@@ -12,7 +12,7 @@ import views.html.*;
 
 public class Application extends Controller {
 	
-	private static Form<Usuario> loginForm = Form.form(Usuario.class);
+	private static Form<Usuario> userForm = Form.form(Usuario.class);
 	private static GenericDAO dao = new GenericDAOImpl();
 	private static Usuario sessionUser;
 
@@ -33,18 +33,18 @@ public class Application extends Controller {
 		if (session().get("email") != null) {
 			return redirect(routes.Application.index());			
 		}
-		return ok(login.render(loginForm));
+		return ok(login.render(userForm));
 	}
 	
 	@Transactional
 	public static Result authenticate() {
 
-		Form<Usuario> userForm = loginForm.bindFromRequest();
+		Form<Usuario> userForm = userForm.bindFromRequest();
 		Usuario userA;
 
 		if (userForm.hasErrors()) {
 			flash("fail", "Erro na captura dos dados");
-        	return badRequest(login.render(loginForm));						
+        	return badRequest(login.render(userForm));						
 		}else{
 			userA = userForm.get();
 			String email = userA.getEmail();
@@ -52,7 +52,7 @@ public class Application extends Controller {
 
 	        if (!validate(email, senha)) {
 	        	flash("fail", "Email ou Senha Inválidos");
-	        	return badRequest(login.render(loginForm));
+	        	return badRequest(login.render(userForm));
 	        } else {
 	        	Usuario user = (Usuario) dao.findByAttributeName(
 	        			"Usuario", "email", userA.getEmail()).get(0);
@@ -82,7 +82,44 @@ public class Application extends Controller {
 		return true;
 	}
 //Login end
+//Métodos para registro de novo usuário
+	@Transactional
+	public static Result show() {
+		return ok(registro.render(userForm));
+	}
 
+	@Transactional
+	public static Result registrar(){
+
+		Form<Usuario> registroPessoa = userForm.bindFromRequest();
+		Usuario usuario;
+
+		if (userForm.hasErrors()) {
+			flash("fail", "Erro na captura dos dados");
+			return badRequest(registro.render(registroPessoa));
+		} else {
+			usuario = registroPessoa.get();
+			if (!validate(usuario.getEmail())) {
+				flash("fail", "Email já está em uso");
+				return badRequest(registro.render(registroPessoa));
+			} else {
+				dao.persist(usuario);
+				dao.flush();
+				return redirect(routes.Application.showLogin());
+			}
+
+		}
+
+	}
+	
+	private static boolean validate(String email) {
+		List<Usuario> u = dao.findByAttributeName("Usuario", "email", email);
+		if (u != null && u.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+//Fim do métodos
 //Métodos para BD e SESSION
 	public static Usuario getSessionP(){
 		return sessionUser;
