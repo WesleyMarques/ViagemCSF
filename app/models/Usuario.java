@@ -19,6 +19,16 @@ public class Usuario {
 
 	@Required
 	private String senha;
+	
+	public Usuario() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Usuario(String nome, String email, String senha){
+		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
+	}
 
 	/**
 	 * @return o email do usuario
