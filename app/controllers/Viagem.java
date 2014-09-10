@@ -5,6 +5,9 @@ import models.ViagemLimitada;
 import play.data.DynamicForm;
 import play.data.Form;
 import views.html.index;
+import play.*;
+import play.mvc.*;
+import views.html.*;
 
 public class Viagem {
 
@@ -43,7 +46,7 @@ public class Viagem {
 	}
 
 	public static result allTrip() {
-
+		Application.getDao().findAllByClassName("Viagem");
 	}
 
 	public static result showInfoTrip() {
