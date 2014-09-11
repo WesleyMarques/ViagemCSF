@@ -85,7 +85,6 @@ public class Application extends Controller {
 	public static Result showRegistry() {
 		return ok(registro.render(userForm));
 	}
-
 	@Transactional
 	public static Result registrar(){
 
