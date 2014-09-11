@@ -3,6 +3,9 @@ package controllers;
 import static play.data.Form.form;
 
 
+
+import java.util.List;
+
 import models.Usuario;
 import models.ViagemLimitada;
 import play.data.Form;
@@ -45,16 +48,15 @@ public class Viagem extends Controller{
 		return null;
 
 	}
-/*
+	
 	@Transactional
-	public static Result allTrip() {
-		Application.getDao().findAllByClassName("Viagem");
-		return null;
+	public static List<Viagem> allTrip() {
+		return Application.getDao().findAllByClassName("Viagem");
 	}
 
 	@Transactional
 	public static Result showInfoTrip() {
 		return null;
 
-	}*/
+	}
 }

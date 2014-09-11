@@ -82,7 +82,6 @@ public class Application extends Controller {
 	}
 //Login end
 //Métodos para registro de novo usuário
-	@Transactional
 	public static Result showRegistry() {
 		return ok(registro.render(userForm));
 	}
