@@ -12,7 +12,7 @@ import views.html.*;
 
 public class Application extends Controller {
 	
-	private static Form<Usuario> userForm = Form.form(Usuario.class);
+	private final static Form<Usuario> USER_FORM = Form.form(Usuario.class);
 	private static GenericDAO dao = new GenericDAOImpl();
 	private static Usuario sessionUser;
 
@@ -33,28 +33,27 @@ public class Application extends Controller {
 		if (session().get("email") != null) {
 			return redirect(routes.Application.index());			
 		}
-		return ok(login.render(userForm));
+		return ok(login.render(USER_FORM));
 	}
 	
 	@Transactional
 	public static Result authenticate() {
-		Form<Usuario> newUserForm = userForm.bindFromRequest();
+		Form<Usuario> newUserForm = USER_FORM.bindFromRequest();
 		Usuario userA;
 
-		if (newUserForm.hasErrors()) {
+		if (USER_FORM.hasErrors()) {
 			flash("fail", "Erro na captura dos dados");
         	return badRequest(login.render(newUserForm));						
 		}else{
-			userA = newUserForm.get();
-			String email = userA.getEmail();
-			String senha = userA.getSenha();
+			String email = newUserForm.field("email").value();
+			String senha = newUserForm.field("senha").value();
 
 	        if (!validate(email, senha)) {
 	        	flash("fail", "Email ou Senha Inválidos");
 	        	return badRequest(login.render(newUserForm));
 	        } else {
 	        	Usuario user = (Usuario) dao.findByAttributeName(
-	        			"Usuario", "email", userA.getEmail()).get(0);
+	        			"Usuario", "email", email).get(0);
 	            session().clear();
 	            session("email", user.getEmail());
 	            return redirect(routes.Application.index());
@@ -82,18 +81,16 @@ public class Application extends Controller {
 	}
 //Login end
 //Métodos para registro de novo usuário
-	@Transactional
 	public static Result showRegistry() {
-		return ok(registro.render(userForm));
+		return ok(registro.render(USER_FORM));
 	}
-
 	@Transactional
 	public static Result registrar(){
 
-		Form<Usuario> registroPessoa = userForm.bindFromRequest();
+		Form<Usuario> registroPessoa = USER_FORM.bindFromRequest();
 		Usuario usuario;
 
-		if (userForm.hasErrors()) {
+		if (USER_FORM.hasErrors()) {
 			flash("fail", "Erro na captura dos dados");
 			return badRequest(registro.render(registroPessoa));
 		} else {

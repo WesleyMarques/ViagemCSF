@@ -2,18 +2,15 @@ package controllers;
 
 import static play.data.Form.form;
 
-import java.lang.ProcessBuilder.Redirect;
+
+
+import java.util.List;
 
 import models.Usuario;
 import models.ViagemLimitada;
-import play.data.DynamicForm;
 import play.data.Form;
 import play.db.jpa.Transactional;
-import play.*;
 import play.mvc.*;
-import views.html.*;
-import views.html.defaultpages.badRequest;
-import views.html.helper.form;
 
 public class Viagem extends Controller{
 
@@ -51,16 +48,15 @@ public class Viagem extends Controller{
 		return null;
 
 	}
-/*
+	
 	@Transactional
-	public static Result allTrip() {
-		Application.getDao().findAllByClassName("Viagem");
-		return null;
+	public static List<Viagem> allTrip() {
+		return Application.getDao().findAllByClassName("Viagem");
 	}
 
 	@Transactional
 	public static Result showInfoTrip() {
 		return null;
 
-	}*/
+	}
 }
