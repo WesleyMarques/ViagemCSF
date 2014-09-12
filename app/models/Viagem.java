@@ -33,6 +33,9 @@ public abstract class Viagem {
 	@Required
 	private String descricao;
 	
+	@Required
+	private String foto;
+	
 	public Viagem() {
 	}
 	
