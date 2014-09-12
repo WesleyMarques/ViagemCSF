@@ -3,7 +3,8 @@
  */
 package models;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 
@@ -22,8 +23,8 @@ public class ViagemLimitada extends Viagem{
 	/**
 	 * 
 	 */
-	public ViagemLimitada(Local local, Date data, String descricao, String senha) {
-		super(local, data, descricao);
+	public ViagemLimitada(Local local, Date data, String descricao, String senha, List<Usuario> usuarios) {
+		super(local, data, descricao, usuarios);
 		this.senha = senha;
 	}
 

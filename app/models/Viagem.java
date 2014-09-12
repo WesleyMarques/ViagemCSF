@@ -3,11 +3,14 @@
  */
 package models;
 
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import play.data.validation.Constraints.Required;
@@ -33,15 +36,25 @@ public abstract class Viagem {
 	@Required
 	private String descricao;
 	
+	@ManyToMany
+	private List<Usuario> usuarios;
+
 	public Viagem() {
 	}
 	
-	public Viagem(Local local, Date data, String descricao){
+	public Viagem(Local local, Date data, String descricao, List<Usuario> usuarios){
 		this.local = local;
 		this.data = data;
-		this.descricao = descricao;		
+		this.descricao = descricao;
+		if(usuarios != null){
+			this.usuarios = usuarios;			
+		}
+		else{
+			usuarios = new ArrayList<Usuario>();
+		}
 	}
 	
+
 	/**
 	 * @return the local
 	 */
@@ -52,7 +65,10 @@ public abstract class Viagem {
 	/**
 	 * @param local the local to set
 	 */
-	public void setLocal(Local local) {
+	public void setLocal(Local local) throws Exception{
+		if (local == null){
+			throw new Exception("Local nulo.");
+		}
 		this.local = local;
 	}
 
@@ -66,7 +82,10 @@ public abstract class Viagem {
 	/**
 	 * @param data the data to set
 	 */
-	public void setData(Date data) {
+	public void setData(Date data) throws Exception{
+		if (data == null){
+			throw new Exception("Data nula.");
+		}
 		this.data = data;
 	}
 
@@ -80,7 +99,10 @@ public abstract class Viagem {
 	/**
 	 * @param descricao the descricao to set
 	 */
-	public void setDescricao(String descricao) {
+	public void setDescricao(String descricao) throws Exception{
+		if (descricao == null){
+			throw new Exception("Descricao nula.");
+		}
 		this.descricao = descricao;
 	}
 
@@ -90,5 +112,66 @@ public abstract class Viagem {
 	public long getId() {
 		return id;
 	}
+	
+	/**
+	 * 
+	 * @return list of users
+	 */
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
 
+	/**
+	 * 
+	 * @param usuarios the list of users 
+	 */
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	/**
+	 * 
+	 * @param usuario to add
+	 */
+	public void addUsuario(Usuario usuario){
+		this.usuarios.add(usuario);
+	}
+	
+	/**
+	 * 
+	 * @param usuario to remove
+	 * @throws Exception if usuario is null, or usuario isn't into usuarios
+	 */
+	public void removeUsuario(Usuario usuario) throws Exception{
+		if(!usuarios.contains(usuario)){
+			throw new Exception("O usuario nao esta cadastrado nesta viagem.");
+		}
+		else if(usuario == null){
+			throw new Exception("Usuario nulo.");
+		}
+		usuarios.remove(usuario);
+	}
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Viagem other = (Viagem) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
 }

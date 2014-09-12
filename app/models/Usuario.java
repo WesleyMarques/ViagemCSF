@@ -40,7 +40,10 @@ public class Usuario {
 	/**
 	 * @param email
 	 */
-	public void setEmail(String email) {
+	public void setEmail(String email) throws Exception{
+		if (email == null){
+			throw new Exception("Email nulo.");
+		}
 		this.email = email;
 	}
 
@@ -54,7 +57,10 @@ public class Usuario {
 	/**
 	 * @param senha
 	 */
-	public void setSenha(String senha) {
+	public void setSenha(String senha) throws Exception {
+		if (senha == null){
+			throw new Exception("Senha nula");
+		}
 		this.senha = senha;
 	}
 
@@ -73,7 +79,10 @@ public class Usuario {
 	/**
 	 * @param nome the nome to set
 	 */
-	public void setNome(String nome) {
+	public void setNome(String nome) throws Exception {
+		if (nome == null){
+			throw new Exception("Nome nulo");
+		}
 		this.nome = nome;
 	}
 }

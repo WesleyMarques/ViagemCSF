@@ -54,7 +54,10 @@ public class Local {
 	/**
 	 * @param nome the nome to set
 	 */
-	public void setNome(String nome) {
+	public void setNome(String nome) throws Exception {
+		if (nome == null){
+			throw new Exception("Nome nulo.");
+		}
 		this.nome = nome;
 	}
 
@@ -68,7 +71,10 @@ public class Local {
 	/**
 	 * @param descricao the descricao to set
 	 */
-	public void setDescricao(String descricao) {
+	public void setDescricao(String descricao) throws Exception{
+		if (descricao == null){
+			throw new Exception("Descricao nula.");
+		}
 		this.descricao = descricao;
 	}
 
