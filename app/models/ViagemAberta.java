@@ -18,8 +18,8 @@ public class ViagemAberta extends Viagem{
 	/**
 	 * 
 	 */
-	public ViagemAberta(Local local, Date data, String descricao, List<Usuario> usuarios) {
-		super(local, data, descricao, usuarios);
+	public ViagemAberta(Local local, Date data, String descricao, List<Usuario> usuarios, String admin, String foto) {
+		super(local, data, descricao, usuarios, admin, foto);
 	}
 	
 

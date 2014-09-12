@@ -14,7 +14,7 @@ import views.html.*;
 
 public class ViagemController extends Controller{
 
-	private final static Form<ViagemController> VIAGEM_FORM = Form.form(ViagemController.class);
+	private final static Form<Viagem> VIAGEM_FORM = Form.form(Viagem.class);
 
 	public static Result showNewTrip(){
 		return ok(novaViagem.render(VIAGEM_FORM));
@@ -23,12 +23,13 @@ public class ViagemController extends Controller{
 	
 	@Transactional
 	public static Result newTrip() {
-		Form<ViagemController> novaViagemForm = VIAGEM_FORM.bindFromRequest();
+		Form<Viagem> novaViagemForm = VIAGEM_FORM.bindFromRequest();
 
 		if (VIAGEM_FORM.hasErrors()) {
 			return badRequest();
 		} else {
-			ViagemController novaTrip = novaViagemForm.get();
+			Viagem novaTrip = novaViagemForm.get();
+			novaTrip.setAdminUsuario(Application.getSessionP().getEmail());
 			Application.getDao().persist(novaTrip);
 			Application.getDao().merge(novaTrip);
 			Application.getDao().flush();

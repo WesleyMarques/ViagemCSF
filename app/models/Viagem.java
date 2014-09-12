@@ -34,6 +34,9 @@ public abstract class Viagem {
 	private Date data;
 	
 	@Required
+	private String adminUsuario;
+	
+	@Required
 	private String descricao;
 	
 	@ManyToMany
@@ -42,19 +45,46 @@ public abstract class Viagem {
 	@Required
 	private String foto;
 	
+	
+
 	public Viagem() {
 	}
 	
-	public Viagem(Local local, Date data, String descricao, List<Usuario> usuarios){
+	public Viagem(Local local, Date data, String descricao, List<Usuario> usuarios, String admin, String foto){
 		this.local = local;
 		this.data = data;
 		this.descricao = descricao;
+		this.adminUsuario = admin;
+		this.foto = foto;
 		if(usuarios != null){
 			this.usuarios = usuarios;			
 		}
 		else{
 			usuarios = new ArrayList<Usuario>();
 		}
+	}
+	
+	/**
+	 * 
+	 * @param email
+	 */
+	public void setAdminUsuario(String email){
+		this.adminUsuario = email;
+		
+	}
+	
+	/**
+	 * @return the adminUsuario
+	 */
+	public String getAdminUsuario() {
+		return adminUsuario;
+	}
+
+	/**
+	 * @return the foto
+	 */
+	public String getFoto() {
+		return foto;
 	}
 	
 

@@ -23,8 +23,8 @@ public class ViagemLimitada extends Viagem{
 	/**
 	 * 
 	 */
-	public ViagemLimitada(Local local, Date data, String descricao, String senha, List<Usuario> usuarios) {
-		super(local, data, descricao, usuarios);
+	public ViagemLimitada(Local local, Date data, String descricao, String senha, List<Usuario> usuarios, String admin, String foto) {
+		super(local, data, descricao, usuarios, admin, foto);
 		this.senha = senha;
 	}
 
