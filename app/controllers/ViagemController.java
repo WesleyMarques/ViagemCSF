@@ -2,20 +2,25 @@ package controllers;
 
 import static play.data.Form.form;
 
-
-
 import java.util.List;
 
 import models.Usuario;
+import models.Viagem;
 import models.ViagemLimitada;
 import play.data.Form;
 import play.db.jpa.Transactional;
 import play.mvc.*;
+import views.html.*;
 
 public class ViagemController extends Controller{
 
 	private final static Form<ViagemController> VIAGEM_FORM = Form.form(ViagemController.class);
 
+	public static Result showNewTrip(){
+		return ok(novaViagem.render(VIAGEM_FORM));
+	}
+	
+	
 	@Transactional
 	public static Result newTrip() {
 		Form<ViagemController> novaViagemForm = VIAGEM_FORM.bindFromRequest();
