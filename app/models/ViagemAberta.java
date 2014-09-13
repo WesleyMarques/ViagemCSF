@@ -13,13 +13,13 @@ import javax.persistence.Entity;
  *
  */
 @Entity
-public class ViagemAberta extends Viagem{
+public class ViagemAberta extends ViagemStrategy{
 
 	/**
 	 * 
 	 */
-	public ViagemAberta(Local local, Date data, String descricao, List<Usuario> usuarios, String admin, String foto) {
-		super(local, data, descricao, usuarios, admin, foto);
+	public ViagemAberta() {
+		super();
 	}
 	
 

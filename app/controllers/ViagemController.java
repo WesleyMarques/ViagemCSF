@@ -28,13 +28,24 @@ public class ViagemController extends Controller{
 		if (VIAGEM_FORM.hasErrors()) {
 			return badRequest();
 		} else {
-			Viagem novaTrip = novaViagemForm.get();
+			Viagem novaTrip = new Viagem();
+			novaTrip.setLocal(local);
 			novaTrip.setAdminUsuario(Application.getSessionP().getEmail());
 			Application.getDao().persist(novaTrip);
 			Application.getDao().merge(novaTrip);
 			Application.getDao().flush();
 			return redirect(routes.Application.index());
 		}
+	}
+	
+	@Transactional
+	private static <T> Object persist(Object object) {
+		List<T> result = Application.getDao().findAllByClassName(object.getClass().getSimpleName());
+		if (!result.contains(object)) {
+			Application.getDao().persist(object);
+			Application.getDao().flush();
+		}
+		return getObjectBD(object);
 	}
 
 	@Transactional

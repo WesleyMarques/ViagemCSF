@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import play.data.validation.Constraints.Required;
 
@@ -20,7 +21,7 @@ import play.data.validation.Constraints.Required;
  *
  */
 @Entity
-public abstract class Viagem {
+public class Viagem implements Comparable<Viagem>{
 	
 	@Id
 	@GeneratedValue
@@ -39,6 +40,9 @@ public abstract class Viagem {
 	@Required
 	private String descricao;
 	
+	@OneToOne
+	private ViagemStrategy tipoDeViagem;
+	
 	@ManyToMany
 	private List<Usuario> usuarios;
 
@@ -50,7 +54,7 @@ public abstract class Viagem {
 	public Viagem() {
 	}
 	
-	public Viagem(Local local, Date data, String descricao, List<Usuario> usuarios, String admin, String foto){
+	public Viagem(Local local, Date data, String descricao, List<Usuario> usuarios, String admin, String foto, String tipoDeViagem){
 		this.local = local;
 		this.data = data;
 		this.descricao = descricao;
@@ -206,5 +210,10 @@ public abstract class Viagem {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Viagem outraViagem) {
+		return this.getDescricao().compareTo(outraViagem.getDescricao());
 	}
 }

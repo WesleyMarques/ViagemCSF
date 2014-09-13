@@ -15,7 +15,7 @@ import play.data.validation.Constraints.Required;
  *
  */
 @Entity
-public class ViagemLimitada extends Viagem{
+public class ViagemLimitada extends ViagemStrategy{
 	
 	@Required
 	private String senha;
@@ -23,9 +23,13 @@ public class ViagemLimitada extends Viagem{
 	/**
 	 * 
 	 */
-	public ViagemLimitada(Local local, Date data, String descricao, String senha, List<Usuario> usuarios, String admin, String foto) {
-		super(local, data, descricao, usuarios, admin, foto);
+	public ViagemLimitada(String senha) {
+		super();
 		this.senha = senha;
+	}
+	
+	public ViagemLimitada() {
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
