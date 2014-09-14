@@ -213,4 +213,11 @@ public class Viagem{
 	public void setEstrategia(ViagemStrategy viagem) {
 		this.tipoDeViagem = viagem;
 	}
+
+
+
+	public ViagemStrategy getTipoDeViagem() {
+		return tipoDeViagem;
+	}
+
 }

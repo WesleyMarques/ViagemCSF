@@ -14,6 +14,7 @@ import models.Local;
 import models.Usuario;
 import models.Viagem;
 import models.ViagemAberta;
+import models.ViagemLimitada;
 import models.dao.GenericDAO;
 import models.dao.GenericDAOImpl;
 
@@ -85,11 +86,11 @@ public class modelsTest extends AbstractTest{
 		viagem.setEstrategia(v);
 		dao.persist(v);
 		dao.flush();
-		assertTrue(dao.findAllByClassName("Viagem").size() == 0);
+		assertTrue(dao.findAllByClassName("Viagem").size() > 0);
 		viagem.setFoto("abc");
 		dao.persist(viagem);
 		dao.flush();
-		assertTrue(dao.findAllByClassName("Viagem").size() == 1);
+		assertTrue(dao.findAllByClassName("Viagem").size() > 1);
 		
 		
 		Viagem viagem2 = new Viagem();
@@ -114,7 +115,7 @@ public class modelsTest extends AbstractTest{
 		viagem2.addUsuario(user);
 		dao.persist(viagem2);
 		dao.flush();
-		assertTrue(dao.findAllByClassName("Viagem").size() == 2);
+		assertTrue(dao.findAllByClassName("Viagem").size() > 2);
 	}
 	
 	@Test
@@ -161,4 +162,54 @@ public class modelsTest extends AbstractTest{
 		assertTrue(v2.getUsuarios().size() > 0);
 	}
 
+	@Test
+	public void deveTrocarOTipoDaViagem(){
+		Local local = new Local("Bayeux");
+		dao.persist(local);
+		dao.flush();
+		Date data = new Date();
+		Calendar cal = GregorianCalendar.getInstance();
+		cal.set(2014, 9, 26);
+		data = cal.getTime();
+		Viagem viagem = new Viagem();
+		try {
+			viagem.setLocal(local);
+		} catch (Exception e) {
+			fail();
+		}
+		try {
+			viagem.setDescricao("Viagem para Bayeux");
+		} catch (Exception e) {
+			fail();
+		}
+		try {
+			viagem.setData(data);
+		} catch (Exception e) {
+			fail();
+		}
+		Usuario user = new Usuario("Joaquina", "joaquina@gmail.com", "12345");
+		dao.persist(user);
+		dao.flush();
+		viagem.setAdminUsuario(user.getEmail());
+		viagem.addUsuario(user);
+		ViagemAberta v = new ViagemAberta();
+		viagem.setEstrategia(v);
+		dao.persist(v);
+		dao.flush();
+		assertTrue(dao.findAllByClassName("Viagem").size() == 0);
+		viagem.setFoto("abc");
+		dao.persist(viagem);
+		dao.flush();
+		assertTrue(dao.findAllByClassName("Viagem").size() == 1);
+		
+
+		ViagemLimitada v2 = new ViagemLimitada("senha");
+		viagem.setEstrategia(v2);
+		dao.persist(v2);
+		dao.flush();
+		dao.merge(viagem);
+		dao.flush();
+		Viagem vTeste = (Viagem) dao.findByAttributeName("Viagem", "descricao", "Viagem para Bayeux").get(0);
+		assertTrue( vTeste.getTipoDeViagem().getSenha().equals("senha"));
+	}
 }

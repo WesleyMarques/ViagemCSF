@@ -20,6 +20,12 @@ public class ViagemAberta extends ViagemStrategy{
 	 */
 	public ViagemAberta() {
 	}
+
+	@Override
+	public String getSenha() {
+		return "";
+	}
+	
 	
 
 }

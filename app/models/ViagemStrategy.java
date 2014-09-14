@@ -21,4 +21,5 @@ public abstract class ViagemStrategy {
 	@GeneratedValue
 	private Long id;
 
+	public abstract String getSenha();
 }
