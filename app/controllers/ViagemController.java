@@ -24,7 +24,8 @@ public class ViagemController extends Controller{
 	}
 	
 	public static Result showViagensAdmin(){
-		return ok(minhasViagens.render());
+		List<Viagem> viagens = Application.getDao().findByAttributeName("Viagem", "adminUsuario", Application.getSessionP().getEmail());
+		return ok(minhasViagens.render(viagens));
 	}
 	
 	@Transactional

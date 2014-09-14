@@ -1,5 +1,6 @@
 @(viagem: Viagem)
 @main("NazaTour") {
+	
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
       <div class="carousel-inner">
@@ -24,10 +25,11 @@
     <div style="width: 100%;text-align: right;">
     @if(viagem.getTipoDeViagem().getSenha() == ""){
     	<button type="button" class="btn btn-primary" disabled>Viagem Aberta</button>
+    	
     }else{
     <button type="button" class="btn btn-danger" disabled>Viagem Limitada</button>
     }
-    <button type="button" class="btn btn-success" style="text-align: right;">Participar</button></div>
+    <button class="btn btn-success" data-toggle="modal" data-target="#modalParticipar">Participar</button>
     <br>
     <table class="table table-striped">
     <tr><td>#</td><th>Participantes</th></tr>
