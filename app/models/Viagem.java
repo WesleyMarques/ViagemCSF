@@ -56,6 +56,14 @@ public class Viagem{
 		usuarios = new ArrayList<Usuario>();
 	}
 	
+	public Viagem(Local local, Date data, String descricao,
+			ViagemStrategy tipoDeViagem, String foto) throws Exception{
+		setLocal(local);
+		setData(data);
+		setDescricao(descricao);
+		setEstrategia(tipoDeViagem);
+		setFoto(foto);
+	}
 	
 	
 	/**
