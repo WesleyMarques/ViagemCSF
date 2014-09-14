@@ -27,12 +27,6 @@ public class ViagemController extends Controller{
 		return ok(minhasViagens.render());
 	}
 	
-	@Transactional
-	public static Result showViagemInfo(Long id){
-		Viagem viagem = (Viagem) Application.getDao().findByEntityId(Viagem.class, id);
-		return ok(viagemInfo.render(viagem));
-	}
-	
 	
 	@Transactional
 	public static Result newTrip() throws Exception {
@@ -119,13 +113,8 @@ public class ViagemController extends Controller{
 	}
 	
 	@Transactional
-	public static List<Viagem> allTrip() {
+	public static List<ViagemController> allTrip() {
 		return Application.getDao().findAllByClassName("Viagem");
-	}
-	
-	@Transactional
-	public static List<String> imagensBanner(){
-		return Application.getDao().createQuery("FROM Viagem LIMIT 3").getResultList();
 	}
 
 	@Transactional
