@@ -2,10 +2,14 @@ package controllers;
 
 import static play.data.Form.form;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
+import models.Local;
 import models.Usuario;
 import models.Viagem;
+import models.ViagemAberta;
 import models.ViagemLimitada;
 import play.data.Form;
 import play.db.jpa.Transactional;
@@ -22,24 +26,40 @@ public class ViagemController extends Controller{
 	
 	
 	@Transactional
-	public static Result newTrip() {
-		Form<Viagem> novaViagemForm = VIAGEM_FORM.bindFromRequest();
+	public static Result newTrip() throws Exception {
 
 		if (VIAGEM_FORM.hasErrors()) {
 			return badRequest();
 		} else {
 			Viagem novaTrip = new Viagem();
-			novaTrip.setLocal(local);
+			
+			novaTrip.setLocal((Local)persistAux(form().bindFromRequest().get("local")));
+			novaTrip.setDescricao(form().bindFromRequest().get("descricao"));
+			novaTrip.setData(getDataFormatada(form().bindFromRequest().get("data")));
 			novaTrip.setAdminUsuario(Application.getSessionP().getEmail());
+			novaTrip.addUsuario(Application.getSessionP());
+			novaTrip.setFoto(form().bindFromRequest().get("foto"));
+			
+			String viagemTipo = form().bindFromRequest().get("ViagemTipo");
+			String senha = form().bindFromRequest().get("senha");
+			
+			
+			if (viagemTipo.equals("LIMITADA")) {
+				novaTrip.setEstrategia((ViagemLimitada) persistAux(new ViagemLimitada(senha)));
+			} else{
+				novaTrip.setEstrategia((ViagemAberta) persistAux(new ViagemAberta()));
+			}			
+			
+			
+			
 			Application.getDao().persist(novaTrip);
-			Application.getDao().merge(novaTrip);
 			Application.getDao().flush();
 			return redirect(routes.Application.index());
 		}
 	}
 	
 	@Transactional
-	private static <T> Object persist(Object object) {
+	public static <T> Object persistAux(Object object) {
 		List<T> result = Application.getDao().findAllByClassName(object.getClass().getSimpleName());
 		if (!result.contains(object)) {
 			Application.getDao().persist(object);
@@ -47,20 +67,37 @@ public class ViagemController extends Controller{
 		}
 		return getObjectBD(object);
 	}
+	
+	@Transactional
+	private static <T> Object getObjectBD(Object object) {
+		List<T> result = Application.getDao().findAllByClassName(object.getClass().getSimpleName());
+		for (Object o : result) {
+			if(o.equals(object)){
+				return o;
+			}
+		}
+		return null;
+	}
 
+	private static Date getDataFormatada(String data) throws Exception {
+		try {
+			String[] splitData = data.split("-");
+			Integer dia = Integer.parseInt(splitData[2]);
+			Integer mes = Integer.parseInt(splitData[1]);
+			Integer ano = Integer.parseInt(splitData[0]);
+			return new GregorianCalendar(ano, mes-1, dia).getTime();
+		} catch (Exception e) {
+			throw new Exception("Data Inválida");
+		}
+	}
+	
 	@Transactional
 	public static Result loginClosedTrip(long idViagem) {
 		ViagemLimitada viagemLimitada = Application.getDao().findByEntityId(ViagemLimitada.class, idViagem);
 
 		String senha = form().bindFromRequest().get("senha");
 		
-		if(viagemLimitada.senhaDaViagemEstaCorreta(senha)){
-			viagemLimitada.addUsuario(Application.getSessionP());
-			Application.getDao().persist(viagemLimitada);
-			Application.getDao().flush();
-			flash("success", "Você foi cadastrado na viagem com sucesso!");
-			return null;
-		}
+		
 		flash("fail", "Senha incorreta!");
 		return null;
 

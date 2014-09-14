@@ -23,17 +23,13 @@ public class Local {
 	@Required
 	private String nome;
 
-	@Required
-	private String descricao;
-
 	
 	public Local() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Local(String nome, String desc, int max){
+	public Local(String nome){
 		this.nome = nome;
-		this.descricao = desc;
 		
 	}
 
@@ -61,25 +57,25 @@ public class Local {
 		this.nome = nome;
 	}
 
-	/**
-	 * @return the descricao
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
-	public String getDescricao() {
-		return descricao;
-	}
-
-	/**
-	 * @param descricao the descricao to set
-	 */
-	public void setDescricao(String descricao) throws Exception{
-		if (descricao == null){
-			throw new Exception("Descricao nula.");
-		}
-		this.descricao = descricao;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Local other = (Local) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 	@Override
 	public String toString() {
-		return this.getNome()+"-"+this.getDescricao();
+		return this.getNome();
 	}
 }

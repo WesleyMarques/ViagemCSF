@@ -21,7 +21,7 @@ import play.data.validation.Constraints.Required;
  *
  */
 @Entity
-public class Viagem implements Comparable<Viagem>{
+public class Viagem{
 	
 	@Id
 	@GeneratedValue
@@ -52,21 +52,10 @@ public class Viagem implements Comparable<Viagem>{
 	
 
 	public Viagem() {
+		usuarios = new ArrayList<Usuario>();
 	}
 	
-	public Viagem(Local local, Date data, String descricao, List<Usuario> usuarios, String admin, String foto, String tipoDeViagem){
-		this.local = local;
-		this.data = data;
-		this.descricao = descricao;
-		this.adminUsuario = admin;
-		this.foto = foto;
-		if(usuarios != null){
-			this.usuarios = usuarios;			
-		}
-		else{
-			usuarios = new ArrayList<Usuario>();
-		}
-	}
+	
 	
 	/**
 	 * 
@@ -212,8 +201,15 @@ public class Viagem implements Comparable<Viagem>{
 		return true;
 	}
 
-	@Override
-	public int compareTo(Viagem outraViagem) {
-		return this.getDescricao().compareTo(outraViagem.getDescricao());
+
+
+	public void setFoto(String foto) {
+		this.foto = foto;		
+	}
+
+
+
+	public void setEstrategia(ViagemStrategy viagem) {
+		this.tipoDeViagem = viagem;
 	}
 }
