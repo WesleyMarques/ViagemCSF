@@ -34,6 +34,7 @@ public class ViagemLimitada extends ViagemStrategy{
 	/**
 	 * @return the senha
 	 */
+	@Override
 	public String getSenha() {
 		return senha;
 	}
