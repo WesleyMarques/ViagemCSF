@@ -159,9 +159,10 @@ public class Viagem{
 	/**
 	 * 
 	 * @param usuario to add
+	 * @throws Exception 
 	 */
-	public void addUsuario(Usuario usuario){
-		this.usuarios.add(usuario);
+	public void addUsuario(Usuario usuario, String senha) throws Exception{
+		this.tipoDeViagem.addUsuario(usuario, senha, this);
 	}
 	
 	/**

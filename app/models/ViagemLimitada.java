@@ -55,4 +55,12 @@ public class ViagemLimitada extends ViagemStrategy{
 	public boolean senhaDaViagemEstaCorreta(String senha){
 		return senha.equals(this.senha);
 	}
+
+	@Override
+	public void addUsuario(Usuario usuario, String senha, Viagem viagem) throws Exception{
+		if (!senha.equals(getSenha())) {
+			throw new Exception("Senha inválida.");
+		}
+		viagem.getUsuarios().add(usuario);
+	}
 }

@@ -40,12 +40,10 @@ public class ViagemController extends Controller{
 			novaTrip.setDescricao(form().bindFromRequest().get("descricao"));
 			novaTrip.setData(getDataFormatada(form().bindFromRequest().get("data")));
 			novaTrip.setAdminUsuario(Application.getSessionP().getEmail());
-			novaTrip.addUsuario(Application.getSessionP());
 			novaTrip.setFoto(form().bindFromRequest().get("foto"));
 			
 			String viagemTipo = form().bindFromRequest().get("viagemTipo");
 			String senha = form().bindFromRequest().get("senha");
-			
 			
 			if (viagemTipo.equals("LIMITADA")) {
 				novaTrip.setEstrategia((ViagemLimitada) persistAux(new ViagemLimitada(senha)));
@@ -53,6 +51,7 @@ public class ViagemController extends Controller{
 				novaTrip.setEstrategia((ViagemAberta) persistAux(new ViagemAberta()));
 			}			
 			
+			novaTrip.addUsuario(Application.getSessionP(), senha);
 			
 			
 			Application.getDao().persist(novaTrip);
@@ -102,6 +101,8 @@ public class ViagemController extends Controller{
 		ViagemLimitada viagemLimitada = Application.getDao().findByEntityId(ViagemLimitada.class, idViagem);
 
 		String senha = form().bindFromRequest().get("senha");
+		
+		
 		
 		
 		flash("fail", "Senha incorreta!");

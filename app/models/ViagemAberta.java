@@ -25,7 +25,10 @@ public class ViagemAberta extends ViagemStrategy{
 	public String getSenha() {
 		return "";
 	}
-	
-	
+
+	@Override
+	public void addUsuario(Usuario usuario, String senha, Viagem viagem) {
+		viagem.getUsuarios().add(usuario);		
+	}
 
 }

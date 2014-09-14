@@ -22,4 +22,6 @@ public abstract class ViagemStrategy {
 	private Long id;
 
 	public abstract String getSenha();
+	
+	public abstract void addUsuario(Usuario usuario, String senha, Viagem viagem) throws Exception;
 }

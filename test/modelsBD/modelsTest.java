@@ -15,6 +15,7 @@ import models.Usuario;
 import models.Viagem;
 import models.ViagemAberta;
 import models.ViagemLimitada;
+import models.ViagemStrategy;
 import models.dao.GenericDAO;
 import models.dao.GenericDAOImpl;
 
@@ -81,11 +82,15 @@ public class modelsTest extends AbstractTest{
 		dao.persist(user);
 		dao.flush();
 		viagem.setAdminUsuario(user.getEmail());
-		viagem.addUsuario(user);
-		ViagemAberta v = new ViagemAberta();
+		ViagemStrategy v = new ViagemAberta();
 		viagem.setEstrategia(v);
 		dao.persist(v);
 		dao.flush();
+		try {
+			viagem.addUsuario(user, v.getSenha());
+		} catch (Exception e1) {
+			fail();
+		}
 		assertTrue(dao.findAllByClassName("Viagem").size() > 0);
 		viagem.setFoto("abc");
 		dao.persist(viagem);
@@ -112,7 +117,11 @@ public class modelsTest extends AbstractTest{
 		viagem2.setFoto("abc");
 		viagem2.setAdminUsuario(user.getEmail());
 		viagem2.setEstrategia(v);
-		viagem2.addUsuario(user);
+		try {
+			viagem2.addUsuario(user, v.getSenha());
+		} catch (Exception e) {
+			fail();
+		}
 		dao.persist(viagem2);
 		dao.flush();
 		assertTrue(dao.findAllByClassName("Viagem").size() > 2);
@@ -147,16 +156,24 @@ public class modelsTest extends AbstractTest{
 		dao.persist(user);
 		dao.flush();
 		viagem.setAdminUsuario(user.getEmail());
-		viagem.addUsuario(user);
-		ViagemAberta v = new ViagemAberta();
+		ViagemStrategy v = new ViagemAberta();
 		viagem.setEstrategia(v);
 		dao.persist(v);
 		dao.flush();
+		try {
+			viagem.addUsuario(user, v.getSenha());
+		} catch (Exception e) {
+			fail();
+		}
 		viagem.setFoto("abc");
 		dao.persist(viagem);
 		dao.flush();
 		
-		viagem.addUsuario(user);
+		try {
+			viagem.addUsuario(user, v.getSenha());
+		} catch (Exception e) {
+			fail();
+		}
 
 		Viagem v2 = (Viagem) dao.findByAttributeName("Viagem", "descricao", "Viagem para Natal").get(0);
 		assertTrue(v2.getUsuarios().size() > 0);
@@ -191,11 +208,15 @@ public class modelsTest extends AbstractTest{
 		dao.persist(user);
 		dao.flush();
 		viagem.setAdminUsuario(user.getEmail());
-		viagem.addUsuario(user);
-		ViagemAberta v = new ViagemAberta();
+		ViagemStrategy v = new ViagemAberta();
 		viagem.setEstrategia(v);
 		dao.persist(v);
 		dao.flush();
+		try {
+			viagem.addUsuario(user, v.getSenha());
+		} catch (Exception e) {
+			fail();
+		}
 		assertTrue(dao.findAllByClassName("Viagem").size() == 0);
 		viagem.setFoto("abc");
 		dao.persist(viagem);
