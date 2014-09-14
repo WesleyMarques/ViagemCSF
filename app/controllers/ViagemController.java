@@ -7,7 +7,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import models.Local;
-import models.Usuario;
 import models.Viagem;
 import models.ViagemAberta;
 import models.ViagemLimitada;
@@ -22,6 +21,10 @@ public class ViagemController extends Controller{
 
 	public static Result showNewTrip(){
 		return ok(novaViagem.render(VIAGEM_FORM));
+	}
+	
+	public static Result showViagensAdmin(){
+		return ok(minhasViagens.render());
 	}
 	
 	
@@ -113,4 +116,7 @@ public class ViagemController extends Controller{
 		return null;
 
 	}
+	
+	
+	
 }

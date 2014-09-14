@@ -18,8 +18,9 @@ POST		/registrar					controllers.Application.registrar()
 
 #Viagem
 POST		/newTrip					controllers.ViagemController.newTrip()
+GET			/newTrip					controllers.ViagemController.showNewTrip()
+POST		/loginClosedTrip/:idViagem	controllers.ViagemController.loginClosedTrip(idViagem: Long)
 <<<<<<< HEAD
 =======
-GET			/newTrip					controllers.ViagemController.showNewTrip()
->>>>>>> f8e3658ec21e5f2af0d9da58544748d9fb9a2913
-POST		/loginClosedTrip/:idViagem	controllers.ViagemController.loginClosedTrip(idViagem: Long)
+GET			/minhasViagens				controllers.ViagemController.showViagensAdmin()
+>>>>>>> 56a7a1eafbe3de546f5aefd73b0e490182fb3259
