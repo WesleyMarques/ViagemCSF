@@ -219,5 +219,9 @@ public class Viagem{
 	public ViagemStrategy getTipoDeViagem() {
 		return tipoDeViagem;
 	}
+	
+	public String dataFormatada(){
+		return data.getDay()+"/"+data.getMonth()+"/"+(data.getYear()+1900);
+	}
 
 }

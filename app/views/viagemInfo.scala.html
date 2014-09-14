@@ -1,0 +1,45 @@
+@(viagem: Viagem)
+@main("NazaTour") {
+	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <div class="carousel-inner">
+      		<div class="item active">
+
+      		<img src="@viagem.getFoto()" alt="First slide">
+          <div class="container">
+          
+          <div class="carousel-caption">
+          <p>@viagem.getDescricao()</p>
+              <h1>@viagem.getLocal(),@viagem.dataFormatada()</h1>
+          </div>
+        </div>	
+      </div>
+     </div><!-- /.carousel -->
+    </div>
+    <div class="container marketing">
+    <div class="row">
+    
+    <div class="col-lg-8" style="margin-left: 150px;">
+    
+    <div style="width: 100%;text-align: right;">
+    @if(viagem.getTipoDeViagem().getSenha() == ""){
+    	<button type="button" class="btn btn-primary" disabled>Viagem Aberta</button>
+    }else{
+    <button type="button" class="btn btn-danger" disabled>Viagem Limitada</button>
+    }
+    <button type="button" class="btn btn-success" style="text-align: right;">Participar</button></div>
+    <br>
+    <table class="table table-striped">
+    <tr><td>#</td><th>Participantes</th></tr>
+    @for(a <-0 to viagem.getUsuarios().size()-1){
+    	<tr><td>@(a+1)</td><td>@viagem.getUsuarios().get(a).getNome()</td></tr>
+    }
+    </table>
+    </div>
+    </div>
+   
+    </div>
+	
+	
+	
+}
