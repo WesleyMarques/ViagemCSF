@@ -40,6 +40,7 @@ public class Viagem{
 	@Required
 	private String descricao;
 	
+	@Required
 	@OneToOne
 	private ViagemStrategy tipoDeViagem;
 	

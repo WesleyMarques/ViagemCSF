@@ -24,7 +24,6 @@ public class ViagemLimitada extends ViagemStrategy{
 	 * 
 	 */
 	public ViagemLimitada(String senha) {
-		super();
 		this.senha = senha;
 	}
 	

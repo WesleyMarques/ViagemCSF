@@ -19,7 +19,6 @@ public class ViagemAberta extends ViagemStrategy{
 	 * 
 	 */
 	public ViagemAberta() {
-		super();
 	}
 	
 
