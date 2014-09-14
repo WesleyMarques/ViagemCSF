@@ -20,6 +20,9 @@ import play.db.jpa.Transactional;
 public class Global extends GlobalSettings{
 
 	private GenericDAO dao = new GenericDAOImpl();
+	List<Local> locais;
+	List<String> descricoes;
+	List<Usuario> usuarios;
 	
 	@Override
 	public void onStart(Application arg0) {
@@ -38,7 +41,7 @@ public class Global extends GlobalSettings{
 	}
 	
 	private void criarLocais(){
-		List<Local> locais = new ArrayList<>();
+		locais = new ArrayList<>();
 		locais.add(new Local("Porto Alegre, RS"));
 		locais.add(new Local("Goiânia, GO"));
 		locais.add(new Local("Vitória, ES"));
@@ -71,8 +74,11 @@ public class Global extends GlobalSettings{
 		locais.add(new Local("Belém, PA"));
 	}
 	
+	private void criaData(){
+	}
+	
 	private void criaDescricao(){
-		List<String> descricoes = new ArrayList<>();
+		descricoes = new ArrayList<>();
 		descricoes.add("Porto Alegre é um município brasileiro e a capital do estado mais meridional do Brasil, o Rio Grande do Sul.");
 		descricoes.add("Goiânia é um município brasileiro, capital do estado de Goiás. Pertence à Mesorregião do Centro Goiano"
 				+ "e à Microrregião de Goiânia, distando 209 km de Brasília, a capital nacional, sendo assim, a capital "
@@ -109,17 +115,19 @@ public class Global extends GlobalSettings{
 		descricoes.add("Salvador, fundada como São Salvador da Bahia de Todos os Santos,8 é um município brasileiro, capital do estado "
 				+ "da Bahia, localizado na Mesorregião Metropolitana de Salvador e Microrregião de Salvador, Região Nordeste do país.");
 		descricoes.add("Rio de Janeiro, é um município brasileiro, capital do estado homônimo, situado no Sudeste do país.");
-		descricoes.add("");
-		descricoes.add("");
-		descricoes.add("");
-		descricoes.add("");
-		descricoes.add("");
-		descricoes.add("");
-		descricoes.add("");
+		descricoes.add("São Luís é um município e a capital do estado do Maranhão, no Brasil.");
+		descricoes.add("Teresina é a capital e o município mais populoso do estado brasileiro do Piauí.");
+		descricoes.add("Cuiabá é a capital e o mais populoso município do estado de Mato Grosso, no Brasil. ");
+		descricoes.add("Campo Grande é um município brasileiro da região Centro-Oeste, capital do estado de Mato Grosso do Sul.");
+		descricoes.add("Boa Vista é a capital e o município mais populoso do estado brasileiro de Roraima. ");
+		descricoes.add("Manaus é um município brasileiro, capital do estado do Amazonas e o principal centro financeiro, "
+				+ "corporativo e econômico da Região Norte do Brasil.");
+		descricoes.add("Belém é um município brasileiro, capital do estado do Pará, pertencente à Mesorregião "
+				+ "Metropolitana de Belém e à Microrregião de Belém.");
 	}
 	
 	private List<Usuario> criarUsuarios(){
-		List<Usuario> usuarios = new ArrayList<Usuario>();
+		usuarios = new ArrayList<Usuario>();
 		try {
 			usuarios.add(new Usuario("Barbosa", "barbosa@mail.com", "123456"));
 			usuarios.add(new Usuario("Julia", "julia@mail.com", "123456"));
