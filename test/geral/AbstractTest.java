@@ -1,6 +1,9 @@
 package geral;
 import javax.persistence.EntityManager;
 
+import models.dao.GenericDAO;
+import models.dao.GenericDAOImpl;
+
 import org.junit.After;
 import org.junit.Before;
 
@@ -12,7 +15,7 @@ import scala.Option;
 
 public abstract class AbstractTest {
     public EntityManager em;
-
+    
     @Before
     public void setUp() {
         FakeApplication app = Helpers.fakeApplication();
