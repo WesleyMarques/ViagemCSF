@@ -8,8 +8,13 @@
     	
 		 
         <title>@title</title>
+<<<<<<< HEAD
+        <meta charset="utf-8">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap-theme.min.css")">
+=======
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap-theme.min.css")">
+>>>>>>> b0120924ee3972a13e92107c5aa38f7664283bd2
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/font-awesome.min.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/carousel.css")">
@@ -18,7 +23,12 @@
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/icon.png")">
     <script src="@routes.Assets.at("javascripts/jquery-2.1.1.min.js")" type="text/javascript"></script>
     <script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+<<<<<<< HEAD
+    <script src="@routes.Assets.at("javascripts/bootstrap-notify.js")" type="text/javascript"></script>
+		
+=======
     <script src="@routes.Assets.at("javascripts/bootstrap-notify.js")" type="text/javascript"></script>		
+>>>>>>> b0120924ee3972a13e92107c5aa38f7664283bd2
 		<script>
     		$(document).ready(function(){
     		    $("#senha").hide();
@@ -67,8 +77,8 @@
 
       </div>
     </div>
-
+    
         @content
-        @modalCadastraUsuario()
+        
     </body>
 </html>
