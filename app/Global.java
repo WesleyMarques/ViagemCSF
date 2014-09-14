@@ -58,11 +58,22 @@ public class Global extends GlobalSettings{
 			dao.persist(viagem);
 			dao.flush();
 			viagem.addUsuario(usuarios.get(i), tipos.get(i).getSenha());
-			if(i>25){
-				for(int j = i+1; j <= i+9; j++){
+			if(i <= 10){
+				for(int j = i+1; j <= (2*i)+1; j++){
+					viagem.addUsuario(usuarios.get(j+2), tipos.get(i).getSenha());
+				}
+			}
+			else if(i > 25){
+				for(int j = i+1; j <= i+10; j++){
 					viagem.addUsuario(usuarios.get(j), tipos.get(i).getSenha());
 				}
 			}
+			else if(i > 10 & i <= 25){
+				for(int j = i+1; j <= i+5; j++){
+					viagem.addUsuario(usuarios.get(j-5), tipos.get(i).getSenha());
+				}
+			}
+			
 			dao.merge(viagem);
 			dao.flush();
 		}
