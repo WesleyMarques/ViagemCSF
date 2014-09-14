@@ -114,7 +114,7 @@ public class ViagemController extends Controller{
 	}
 	
 	@Transactional
-	public static List<ViagemController> allTrip() {
+	public static List<Viagem> allTrip() {
 		return Application.getDao().findAllByClassName("Viagem");
 	}
 
