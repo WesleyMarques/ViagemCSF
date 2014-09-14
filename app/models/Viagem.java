@@ -63,6 +63,7 @@ public class Viagem{
 		setDescricao(descricao);
 		setEstrategia(tipoDeViagem);
 		setFoto(foto);
+		usuarios = new ArrayList<Usuario>();
 	}
 	
 	
