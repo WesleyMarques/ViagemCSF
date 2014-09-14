@@ -18,7 +18,7 @@ import views.html.*;
 public class ViagemController extends Controller{
 
 	private final static Form<Viagem> VIAGEM_FORM = Form.form(Viagem.class);
-
+	
 	public static Result showNewTrip(){
 		return ok(novaViagem.render(VIAGEM_FORM));
 	}

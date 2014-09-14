@@ -24,3 +24,5 @@ GET			/minhasViagens				controllers.ViagemController.showViagensAdmin()
 
 #ViagemInfo
 GET			/viagemInfo/:idViagem		controllers.ViagemController.showViagemInfo(idViagem: Long)
+
+
