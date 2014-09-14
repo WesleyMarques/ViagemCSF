@@ -20,4 +20,3 @@ POST		/registrar					controllers.Application.registrar()
 POST		/newTrip					controllers.ViagemController.newTrip()
 GET			/newTrip					controllers.ViagemController.showNewTrip()
 POST		/loginClosedTrip/:idViagem	controllers.ViagemController.loginClosedTrip(idViagem: Long)
-GET			/

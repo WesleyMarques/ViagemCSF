@@ -4,12 +4,13 @@
 package modelsBD;
 
 import static org.junit.Assert.*;
+import static play.data.Form.form;
+import geral.AbstractTest;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import geral.AbstractTest;
 import models.Local;
 import models.Usuario;
 import models.Viagem;
@@ -20,6 +21,8 @@ import models.dao.GenericDAOImpl;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import controllers.Application;
 
 /**
  * @author Wesley
@@ -43,32 +46,58 @@ public class modelsTest extends AbstractTest{
 	
 	@Test
 	public void deveCriarLocal(){
-		Local local = new Local("SESI", "Marciel Pinheiro", 10);
+		Local local = new Local("SESI");
 		dao.persist(local);
 		assertTrue(dao.findAllByClassName("Local").size() > 0);
-		local = new Local("UEPB", "Rua João Pessoa", 10);
+		local = new Local("UEPB");
 	    dao.persist(local);
 		assertTrue(dao.findAllByClassName("Local").size() > 1);
 	}
 	
 	@Test 
-	public void deveCriarEPersistirAViagem(){
-		Local local = new Local("SESI", "Marciel Pinheiro", 10);
+	public void deveCriarEPersistirAViagem() throws Exception{
+		Local local = new Local("Joao Pessoa");
+		dao.persist(local);
 		Date data = new Date();
 		Calendar cal = GregorianCalendar.getInstance();
 		cal.set(2014, 9, 26);
 		data = cal.getTime();
-		Viagem viagem = new ViagemAberta(local, data, "Viagem de ferias", null);
+		Viagem viagem = new Viagem();
+		viagem.setLocal(local);
+		viagem.setDescricao("Viagem para Joao Pessoa");
+		viagem.setData(data);
+		Usuario user = new Usuario("Gustavo", "Gustavo@gmail.com", "12345");
+		dao.persist(user);
+		viagem.setAdminUsuario(user.getEmail());
+		viagem.addUsuario(user);
+		viagem.setFoto(form().bindFromRequest().get("foto"));
 		assertTrue(dao.findAllByClassName("Viagem").size() == 0);
+		System.out.println((dao.findAllByClassName("Viagem").size() == 0));
 		dao.persist(viagem);
 		assertTrue(dao.findAllByClassName("Viagem").size() == 1);
-		Viagem viagem2 = new ViagemLimitada(local, data, "Viagem de ferias", "123", null);
-		dao.persist(viagem2);
+		
+		
+		viagem = new Viagem();
+		dao.persist(viagem);
 		assertTrue(dao.findAllByClassName("Viagem").size() == 2);
 	}
 	
-	@Test
+	/*@Test
 	public void deveCadastrarUsuarioNaViagem(){
+		Local local = new Local("Joao Pessoa");
+		Date data = new Date();
+		Calendar cal = GregorianCalendar.getInstance();
+		cal.set(2014, 9, 26);
+		data = cal.getTime();
+		Viagem viagem = new Viagem();
+		viagem.setLocal(local);
+		viagem.setDescricao("Viagempara Joao Pessoa");
+		viagem.setData(data);
+		viagem.setAdminUsuario(Application.getSessionP().getEmail());
+		viagem.addUsuario(Application.getSessionP());
+		viagem.setFoto(form().bindFromRequest().get("foto"));
+		
+		
 		Local local = new Local("SESI", "Marciel Pinheiro", 10);
 		Date data = new Date();
 		Calendar cal = GregorianCalendar.getInstance();
@@ -100,6 +129,6 @@ public class modelsTest extends AbstractTest{
 			}
 		}
 		
-	}
+	}*/
 
 }
