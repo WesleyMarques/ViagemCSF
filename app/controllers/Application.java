@@ -1,8 +1,12 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import models.Usuario;
+import models.Viagem;
 import models.dao.GenericDAO;
 import models.dao.GenericDAOImpl;
 import play.data.Form;
@@ -17,12 +21,19 @@ public class Application extends Controller {
 	private static Usuario sessionUser;
 
 
+	@Transactional
     public static Result index() {
     	if (session().get("email") == null) {
 			return redirect(routes.Application.showLogin());
 		}
-        return ok(index.render("Your new application is ready."));
+    	List<Viagem> todasViagens = ViagemController.allTrip();
+    	Collections.reverse(todasViagens);
+    	int temp = todasViagens.size();
+    	int banners = temp <= 3? temp: 3;
+    	
+        return ok(index.render("Your new application is ready.", todasViagens, todasViagens.subList(0, banners),banners));
     }
+	
     
 //Login Controller start
     /**
