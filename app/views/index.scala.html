@@ -2,6 +2,11 @@
 
 @main("Welcome to Play") {
 	
+	@if(flash.contains("success")) {
+   		<p class="bg-success" style="">
+        	@flash.get("success")
+		</p>
+   }
 <!-- Carousel
     ================================================== -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">

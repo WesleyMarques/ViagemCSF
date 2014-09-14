@@ -36,14 +36,14 @@ public class ViagemController extends Controller{
 		} else {
 			Viagem novaTrip = new Viagem();
 			
-			novaTrip.setLocal((Local)persistAux(form().bindFromRequest().get("local")));
+			novaTrip.setLocal((Local)persistAux(new Local(form().bindFromRequest().get("local"))));
 			novaTrip.setDescricao(form().bindFromRequest().get("descricao"));
 			novaTrip.setData(getDataFormatada(form().bindFromRequest().get("data")));
 			novaTrip.setAdminUsuario(Application.getSessionP().getEmail());
 			novaTrip.addUsuario(Application.getSessionP());
 			novaTrip.setFoto(form().bindFromRequest().get("foto"));
 			
-			String viagemTipo = form().bindFromRequest().get("ViagemTipo");
+			String viagemTipo = form().bindFromRequest().get("viagemTipo");
 			String senha = form().bindFromRequest().get("senha");
 			
 			
@@ -57,6 +57,9 @@ public class ViagemController extends Controller{
 			
 			Application.getDao().persist(novaTrip);
 			Application.getDao().flush();
+			
+			flash("success", "Viagem criada com sucesso!");
+			
 			return redirect(routes.Application.index());
 		}
 	}

@@ -56,6 +56,7 @@ public class Application extends Controller {
 	        			"Usuario", "email", email).get(0);
 	            session().clear();
 	            session("email", user.getEmail());
+				sessionUser = user;
 	            return redirect(routes.Application.index());
 	        }
 		}
