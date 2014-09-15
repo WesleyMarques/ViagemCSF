@@ -10,20 +10,22 @@
         <h4 class="modal-title">Você gostaria de participar da viagem para @viagem.getLocal().getNome()?</h4>
       </div>
       <div class="modal-body">
-       @if(viagem.getTipoDeViagem().getSenha().length() != 0){
-       	<div id="senha" class="form-group">
-		    	<label class="col-sm-2 control-label">Senha: </label>
-		    	<div class="col-sm-5">
-		     		 <input type="password" name="senha2" class="form-control" placeholder="senha">
-		   		</div>
-	  	</div>       	
+       <form class="form-horizontal" role="form" method="post" action=@routes.ViagemController.loginTrip(viagem.getId())>
+       @if(viagem.getTipoDeViagem().getSenha() != ""){
+       	<div id="senha3" class="form-group">
+			<div class="input-group">
+				<span class="input-group-addon">Codigo de Acesso</span>
+				<input type="password" name="senha2" class="form-control" placeholder="*****">
+			</div>
+	  	</div>      
        }
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button> 	
+        <button type="submit" class="btn btn-primary">Participar</button>
+        </form>
       </div>
       
       
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Participar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

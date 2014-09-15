@@ -106,16 +106,20 @@ public class ViagemController extends Controller{
 	@Transactional
 	public static Result loginTrip(long idViagem) throws Exception {
 		Viagem viagem = Application.getDao().findByEntityId(Viagem.class, idViagem);
-		String senha = form().bindFromRequest().get("senha");
+		String senha = form().bindFromRequest().get("senha2");
+		if(senha == null){
+			senha = "";
+		}
 		
 		if(senha.equals(viagem.getTipoDeViagem().getSenha())){
 			viagem.addUsuario(Application.getSessionP(), senha);
 			Application.getDao().merge(viagem);
 			Application.getDao().flush();
+			flash("success", "Cadastrado na viagem com sucesso.");
 			return redirect(routes.Application.index());
 		}
-		flash("fail", "Senha incorreta!");
-		return badRequest();
+		flash("fail", "Código de acesso incorreto!");
+		return badRequest(viagemInfo.render(viagem));
 
 	}
 	

@@ -1,6 +1,14 @@
 @(viagem: Viagem)
 @main("NazaTour") {
 	
+	@if(flash.contains("fail")) {
+   		<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+   		alert("@flash.get("fail")")
+   		</SCRIPT>
+        	
+		</p>
+   }
+	
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
       <div class="carousel-inner">
