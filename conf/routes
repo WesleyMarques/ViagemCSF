@@ -22,6 +22,10 @@ GET			/newTrip					controllers.ViagemController.showNewTrip()
 POST		/loginTrip/:idViagem		controllers.ViagemController.loginTrip(idViagem: Long)
 GET			/minhasViagens				controllers.ViagemController.showViagensAdmin()
 
+GET			/editarViagem/:id			controllers.ViagemController.editarViagem(id: Long)
+POST		/editarViagem/:id			controllers.ViagemController.pEditarViagem(id: Long)
+
+
 #ViagemInfo
 GET			/viagemInfo/:idViagem		controllers.ViagemController.showViagemInfo(idViagem: Long)
 

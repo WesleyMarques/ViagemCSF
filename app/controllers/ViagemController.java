@@ -36,9 +36,51 @@ public class ViagemController extends Controller{
 	}
 	
 	@Transactional
+	public static Result editarViagem(Long id){
+		Viagem viagem = Application.getDao().findByEntityId(Viagem.class, id);
+		return ok(editarViagem.render(VIAGEM_FORM,viagem));
+		
+	}
+	
+	@Transactional
 	public static Result showViagemInfo(Long id){
 		Viagem viagem = (Viagem) Application.getDao().findByEntityId(Viagem.class, id);
 		return ok(viagemInfo.render(viagem));
+	}
+	
+	@Transactional
+	public static Result pEditarViagem(Long id) throws Exception {
+
+		if (VIAGEM_FORM.hasErrors()) {
+			return badRequest();
+		} else {
+			Viagem novaTrip = (Viagem) Application.getDao().findByEntityId(Viagem.class, id);
+			
+			novaTrip.setLocal((Local)persistAux(new Local(form().bindFromRequest().get("local"))));
+			novaTrip.setDescricao(form().bindFromRequest().get("descricao"));
+			novaTrip.setData(getDataFormatada(form().bindFromRequest().get("data")));
+			novaTrip.setAdminUsuario(Application.getSessionP().getEmail());
+			novaTrip.setFoto(form().bindFromRequest().get("foto"));
+			
+			String viagemTipo = form().bindFromRequest().get("viagemTipo");
+			String senha = form().bindFromRequest().get("senha");
+			
+			if (viagemTipo.equals("LIMITADA")) {
+				novaTrip.setEstrategia((ViagemLimitada) persistAux(new ViagemLimitada(senha)));
+			} else{
+				novaTrip.setEstrategia((ViagemAberta) persistAux(new ViagemAberta()));
+			}			
+			
+			novaTrip.addUsuario(Application.getSessionP(), senha);
+			
+			
+			Application.getDao().merge(novaTrip);
+			Application.getDao().flush();
+			
+			flash("success", "Viagem alterada com sucesso!");
+			
+			return redirect(routes.Application.index());
+		}
 	}
 	
 	

@@ -1,0 +1,75 @@
+@(form: Form[Viagem], viagem: Viagem)
+
+@main("NazaTour"){	
+	<div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+      	<div class="col-lg-10"><br><br><br><br><br><br><br><br><br><br><br><br>
+      	<h1>Editar Viagem</h1>
+      	<input name="adminUsuario" hidden="true" value="email">
+		  <form class="form-horizontal" role="form" method="post" action="/editarViagem/@viagem.getId()">
+		  <div class="form-group">
+		    <label for="inputEmail3" class="col-sm-2 control-label">Local</label>
+		    <div class="col-sm-10">
+		      <input type="text" name="local" class="form-control" id="inputEmail3" placeholder="Digite o Local da Viagem" value="@viagem.getLocal()">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label class="col-sm-2 control-label">URL da imagem</label>
+		    <div class="col-sm-10">
+		      <input type="text" name="foto" class="form-control" placeholder="Insira uma imagem referente a viagem. EX: http://imagens.com/teste.jpg" value="@viagem.getFoto()">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		  <label class="col-sm-2 control-label">Data da Viagem</label>
+		    <div class="col-sm-10">
+		    <input id="dataText" name="data" type="date" class="col-md-4 form-control" style="width: 30% !important; margin-left: 0px !important" value="@viagem.getData()" required>
+		    </div>
+		    </div>
+		    
+		    <div class="form-group">
+		  	<label class="col-sm-2 control-label">Descri��o da Viagem</label>
+		  	<div class="col-sm-10">
+		    <textarea name="descricao"
+										style="width: !important; margin-left: 0px !important; resize: none;"
+										placeholder="Descricao da viagem" class="form-control"
+										rows="11" maxlength="300" >@viagem.getDescricao()</textarea>
+			</div>
+		    </div>
+		    
+		    <div class="form-group">
+		  	<label class="col-sm-2 control-label">Tipo da Viagem</label>
+		  	<div class="col-sm-10">
+		    <select id="ViagemTipo" name="viagemTipo" class="form-control">
+		    	<option value="ABERTA" >Viagem Aberta</option>
+		    	<option id="viagemLimitada" value="LIMITADA">Viagem Limitada</option>
+		    </select>
+		    </div>
+		    </div>
+		    
+		    <div id="senha" class="form-group">
+		    	<label class="col-sm-2 control-label">Senha: </label>
+		    	<div class="col-sm-5">
+		     		 <input type="password" name="senha" class="form-control" placeholder="senha">
+		   		</div>
+		 	</div>
+		    
+		    <div id="concluir" class="form-group">
+		    <div class="col-sm-offset-2 col-sm-5">
+		      <button type="submit" class="btn btn-success">Concluir</button>
+		    </div>
+		  </div>
+		  
+		  
+		  </div>
+		</form>
+      		
+      	
+      	</div>
+      </div>
+   </div>
+
+}
