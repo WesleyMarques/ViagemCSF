@@ -111,14 +111,18 @@ public class ViagemController extends Controller{
 			senha = "";
 		}
 		
-		if(senha.equals(viagem.getTipoDeViagem().getSenha())){
-			viagem.addUsuario(Application.getSessionP(), senha);
-			Application.getDao().merge(viagem);
-			Application.getDao().flush();
-			flash("success", "Cadastrado na viagem com sucesso.");
-			return redirect(routes.Application.index());
+		if(!viagem.getUsuarios().contains(Application.getSessionP())){	
+			if(senha.equals(viagem.getTipoDeViagem().getSenha())){
+				viagem.addUsuario(Application.getSessionP(), senha);
+				Application.getDao().merge(viagem);
+				Application.getDao().flush();
+				flash("success", "Cadastrado na viagem com sucesso.");
+				return ok(viagemInfo.render(viagem));
+			}
+			flash("fail", "Código de acesso incorreto!");
+			return badRequest(viagemInfo.render(viagem));
 		}
-		flash("fail", "Código de acesso incorreto!");
+		flash("fail", "Você já está cadastrado para esta viagem.");
 		return badRequest(viagemInfo.render(viagem));
 
 	}

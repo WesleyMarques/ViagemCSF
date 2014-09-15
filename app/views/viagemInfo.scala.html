@@ -8,6 +8,13 @@
         	
 		</p>
    }
+   @if(flash.contains("success")) {
+   		<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+   		alert("@flash.get("success")")
+   		</SCRIPT>
+        	
+		</p>
+   }
 	
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
