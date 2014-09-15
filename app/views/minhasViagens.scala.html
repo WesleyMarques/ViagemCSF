@@ -1,4 +1,17 @@
 @(viagens: List[Viagem])
-@main("Welcome to Play"){
+@main("NazaTour"){
+	<div class="container marketing">
 
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+      	<div class="col-lg-10"><br><br><br><br><br><br><br><br><br><br><br><br>
+	<table class="table table-striped">
+	<tr><td>Viagem</td><td>Editar</td></tr>
+	@for(viagem <- viagens){
+		<tr><td>@viagem.getLocal()</td><td><a href="/editarViagem/@viagem.getId()" class="btn btn-warning">Editar</button></td></tr>
+	}
+	</table>
+	</div>
+	</div>
+	</div>
 }

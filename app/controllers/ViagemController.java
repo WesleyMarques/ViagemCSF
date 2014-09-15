@@ -2,6 +2,7 @@ package controllers;
 
 import static play.data.Form.form;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -23,9 +24,15 @@ public class ViagemController extends Controller{
 		return ok(novaViagem.render(VIAGEM_FORM));
 	}
 	
+	@Transactional
 	public static Result showViagensAdmin(){
-		List<Viagem> viagens = Application.getDao().findByAttributeName("Viagem", "adminUsuario", Application.getSessionP().getEmail());
-		return ok(minhasViagens.render(viagens));
+		List<Viagem> mViagens = new ArrayList<Viagem>();
+		List<Viagem> viagens = Application.getDao().findAllByClassName("Viagem");
+		for(Viagem viagem: viagens){
+			if(viagem.getAdminUsuario().equals(Application.getSessionP().getEmail()))
+					mViagens.add(viagem);
+		}
+		return ok(minhasViagens.render(mViagens));
 	}
 	
 	@Transactional

@@ -81,7 +81,7 @@ public class Global extends GlobalSettings{
 
 
 	private void criarTiposDeViagem() {
-		tipos = new ArrayList<>();
+		tipos = new ArrayList<ViagemStrategy>();
 		for(int i = 0; i<30; i++){
 			// tipos.get(i); i%2==0 => viagem aberta
 			ViagemStrategy viagemAberta = new ViagemAberta();
@@ -97,7 +97,7 @@ public class Global extends GlobalSettings{
 	}
 	
 	private void criarLocais(){
-		locais = new ArrayList<>();
+		locais = new ArrayList<Local>();
 		locais.add(new Local("Porto Alegre, RS"));
 		dao.persist(locais.get(locais.size()-1));
 		dao.flush();
@@ -193,7 +193,7 @@ public class Global extends GlobalSettings{
 	}
 	
 	private void criarFotos(){
-		fotos = new ArrayList<>();
+		fotos = new ArrayList<String>();
 		
 		fotos.add("http://i17.photobucket.com/albums/b91/latinohunk/14th/panoOrla.jpg");
 		fotos.add("http://3.bp.blogspot.com/-L64ZaISB7aQ/Uf7Dqx_YU7I/AAAAAAAAPis/Uug1cqDbMnU/s1600/panor%C3%A2mica-dentro-do-zoologico-goiania.jpg");
@@ -230,7 +230,7 @@ public class Global extends GlobalSettings{
 	}
 	
 	private void criarData(){
-		datas = new ArrayList<>();
+		datas = new ArrayList<Date>();
 		Calendar cal = GregorianCalendar.getInstance();
 		
 		cal.set(2014, 9, 26);
@@ -327,7 +327,7 @@ public class Global extends GlobalSettings{
 	}
 	
 	private void criaDescricao(){
-		descricoes = new ArrayList<>();
+		descricoes = new ArrayList<String>();
 		descricoes.add("Porto Alegre é um município brasileiro e a capital do estado mais meridional do Brasil, o Rio Grande do Sul.");
 		descricoes.add("Goiânia é um município brasileiro, capital do estado de Goiás. Pertence à Mesorregião do Centro Goiano"
 				+ "e à Microrregião de Goiânia, distando 209 km de Brasília, a capital nacional, sendo assim, a capital "
